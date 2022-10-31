@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\CurriculumController;
+use App\Http\Controllers\UserApplicationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,7 +22,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::post('/send-application', [CurriculumController::class, 'send'])
+Route::post('/send-application', [UserApplicationController::class, 'send'])
     ->name('send-application');
 
 require __DIR__.'/auth.php';
