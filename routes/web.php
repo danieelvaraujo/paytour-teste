@@ -21,4 +21,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::post('/send-curriculum', [CurriculumController::class, 'send'])
+    ->name('send-curriculum');
+
 require __DIR__.'/auth.php';
