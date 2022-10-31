@@ -16,8 +16,8 @@ class CurriculumTest extends TestCase
     public function test_user_can_send_curriculum_without_file()
     {
         $data = [
-            'nome' => 'Daniel Valente',
-            'email' => "daniel@email.com",
+            'name' => 'Daniel Valente',
+            'email' => 'daniel@email.com',
             'telephone' => '84987418355',
             'desired_job_title' => 'Backend Developer (Laravel)',
             'scholarity' => 'Civil Engieener',
