@@ -29,31 +29,23 @@ class CurriculumTest extends TestCase
         $response = $this->post('/send-curriculum', $data);
 
         $response->assertOk();
-        $this->assertDatabaseHas('curriculums', [
+        $this->assertDatabaseHas('user-applications', [
             'email' => $data['email'],
         ]);
     }
 
     public function test_user_curriculum_upload()
     {
-        Storage::fake('curriculums');
+        $filename = 'usuario-tostador-cv.pdf';
 
-        $data = [
-            'name' => 'Usuario Testador',
-            'email' => 'teste@email.com',
-            'telephone' => '84987654321',
-            'desired_job_title' => 'Desenvolvedor backend',
-            'scholarity' => 'Ensino superior completo',
-            'observations' => 'Campo opcional.',
-            'file' => UploadedFile::fake()->create('usuario-tostador-cv', 1, '.doc')
-        ];
-
-        $response = $this->post('/send-curriculum', $data);
+        $response = $this->post('projects', [
+            'file' => UploadedFile::fake()->create($filename, 1024)
+        ]);
 
         $response->assertOk();
         Storage::disk('curriculums')->assertExists('usuario-tostador-cv.doc');
         $this->assertDatabaseHas('curriculums', [
-            'email' => $data['email'],
+            '' => $data['email'],
         ]);
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Curriculum;
+use App\Models\UserApplication;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -18,7 +18,7 @@ class CurriculumController extends Controller
             'scholarity' => 'required',
         ]);
 
-        $curriculum = Curriculum::create($request->all());
+        $curriculum = UserApplication::create($request->all());
 
         return response()->json([
             'success' => true,
