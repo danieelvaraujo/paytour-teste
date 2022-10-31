@@ -13,10 +13,22 @@ class CurriculumTest extends TestCase
      *
      * @return void
      */
-    public function test_example()
+    public function test_user_can_send_curriculum_without_file()
     {
-        $response = $this->get('/');
+        $data = [
+            'nome' => 'Daniel Valente',
+            'email' => "daniel@email.com",
+            'telephone' => '84987418355',
+            'desired_job_title' => 'Backend Developer (Laravel)',
+            'scholarity' => 'Civil Engieener',
+            'observations' => 'Campo opcional.',
+        ];
 
-        $response->assertStatus(200);
+        $response = $this->post('/send-curriculum', $data);
+
+        $response->assertOk();
+        $this->assertDatabaseHas('curriculums', [
+            'email' => $data['email'],
+        ]);
     }
 }
