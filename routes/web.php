@@ -22,7 +22,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::post('/send-curriculum', [CurriculumController::class, 'send'])
-    ->name('send-curriculum');
+Route::post('/send-application', [CurriculumController::class, 'send'])
+    ->name('send-application');
 
 require __DIR__.'/auth.php';
