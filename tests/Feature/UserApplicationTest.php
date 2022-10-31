@@ -29,7 +29,7 @@ class UserApplicationTest extends TestCase
         $response = $this->post('/send-application', $data);
 
         $response->assertOk();
-        $this->assertDatabaseHas('user-applications', [
+        $this->assertDatabaseHas('user_applications', [
             'email' => $data['email'],
         ]);
     }
