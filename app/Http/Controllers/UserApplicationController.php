@@ -6,7 +6,7 @@ use App\Models\UserApplication;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class CurriculumController extends Controller
+class UserApplicationController extends Controller
 {
     public function send(Request $request)
     {

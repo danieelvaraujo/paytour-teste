@@ -8,14 +8,14 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
-class CurriculumTest extends TestCase
+class UserApplicationTest extends TestCase
 {
     /**
      * A basic feature test example.
      *
      * @return void
      */
-    public function test_user_can_send_curriculum_without_file()
+    public function test_user_can_send_an_application()
     {
         $data = [
             'name' => 'Usuario Testador',
@@ -26,7 +26,7 @@ class CurriculumTest extends TestCase
             'observations' => 'Campo opcional.',
         ];
 
-        $response = $this->post('/send-curriculum', $data);
+        $response = $this->post('/send-application', $data);
 
         $response->assertOk();
         $this->assertDatabaseHas('user-applications', [
@@ -34,7 +34,7 @@ class CurriculumTest extends TestCase
         ]);
     }
 
-    public function test_user_curriculum_upload()
+    public function test_user_can_upload_a_curriculum()
     {
         $filename = 'usuario-tostador-cv.pdf';
 
@@ -45,7 +45,7 @@ class CurriculumTest extends TestCase
         $response->assertOk();
         Storage::disk('curriculums')->assertExists('usuario-tostador-cv.doc');
         $this->assertDatabaseHas('curriculums', [
-            '' => $data['email'],
+            'file' => $filename,
         ]);
     }
 }
