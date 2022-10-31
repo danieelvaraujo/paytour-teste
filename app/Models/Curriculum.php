@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Model;
 
-class Curriculum
+class Curriculum extends Model
 {
     protected $fillable = [
         'name',
