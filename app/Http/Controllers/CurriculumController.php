@@ -4,21 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Models\Curriculum;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class CurriculumController extends Controller
 {
     public function send(Request $request)
     {
-        $data = $request->validate([
-            'name' => 'bail|required|min:3',
-            'email' => 'bail|required|email',
+        $request->validate([
+            'name' => 'required|min:3',
+            'email' => 'required|email',
             'telephone' => 'required',
-            'desired_job_title' => 'bail|required|string',
+            'desired_job_title' => 'required|string',
             'scholarity' => 'required',
-            'observations' => 'string',
         ]);
 
-        $curriculum = Curriculum::create($data);
+        $curriculum = Curriculum::create($request->all());
 
         return response()->json([
             'success' => true,
