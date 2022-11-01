@@ -46,7 +46,6 @@ class UserApplicationController extends Controller
             $applicant = UserApplication::where('email', $request->email)->first();
         }
 
-
         $curriculum = Curriculum::create([
             'name' => $request->name,
             'filename' => $filename,
