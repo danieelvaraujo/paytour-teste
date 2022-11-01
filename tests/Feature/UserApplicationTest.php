@@ -38,7 +38,8 @@ class UserApplicationTest extends TestCase
     {
         $filename = 'usuario-tostador-cv.pdf';
 
-        $response = $this->post('projects', [
+        $response = $this->post('/upload-curriculum', [
+            'name' => 'Usuario Tostador',
             'file' => UploadedFile::fake()->create($filename, 1024)
         ]);
 
