@@ -9,6 +9,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 class UserApplicationController extends Controller
 {
+    public function show()
+    {
+        return view('send-application');
+    }
+
     public function send(Request $request)
     {
         $request->validate([
