@@ -31,11 +31,12 @@ class UserApplicationController extends Controller
     public function upload(Request $request)
     {
         $filename = $request->file('file')->getClientOriginalName();
-        $request->file('file')->store('curriculums');
+        $request->file('file')->storeAs('curriculums', $filename);
 
         $curriculum = Curriculum::create([
             'name' => $request->name,
-            'file' => $filename
+            'filename' => $filename,
+            'applicant_id' => $request->applicant_id
         ]);
 
         return response()->json([
