@@ -36,6 +36,13 @@ return [
             'throw' => false,
         ],
 
+        'curriculums' => [
+            'driver' => 'local',
+            'root' => storage_path('app/curriculums'),
+            'url' => env('APP_URL').'/storage/curriculums',
+            'throw' => false
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
