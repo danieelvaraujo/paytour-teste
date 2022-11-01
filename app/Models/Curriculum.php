@@ -10,6 +10,7 @@ class Curriculum extends Model
 
     protected $fillable = [
         'name',
-        'file'
+        'filename',
+        'applicant_id'
     ];
 }
