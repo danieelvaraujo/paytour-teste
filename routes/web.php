@@ -18,7 +18,7 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/send-application', [UserApplicationController::class, 'show'])->name('send-application');
+Route::get('/send-application', [UserApplicationController::class, 'show']);
 Route::post('/send-application', [UserApplicationController::class, 'send']);
 Route::post('/upload-curriculum', [UserApplicationController::class, 'upload']);
 
