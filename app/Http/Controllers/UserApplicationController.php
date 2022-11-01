@@ -26,6 +26,10 @@ class UserApplicationController extends Controller
 
         $application = UserApplication::create($request->all());
 
+        if ($request->file()) {
+            $this->upload($request);
+        }
+
         return response()->json([
             'success' => true,
             'message' => 'Application sended sucessfully',
@@ -38,10 +42,15 @@ class UserApplicationController extends Controller
         $filename = $request->file('file')->getClientOriginalName();
         $request->file('file')->storeAs('curriculums', $filename);
 
+        if (!isset($request->applicant_id)) {
+            $applicant = UserApplication::where('email', $request->email)->first();
+        }
+
+
         $curriculum = Curriculum::create([
             'name' => $request->name,
             'filename' => $filename,
-            'applicant_id' => $request->applicant_id
+            'applicant_id' => $request->applicant_id ?? $applicant->id
         ]);
 
         return response()->json([
