@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\UserApplicationController;
-use App\Models\UserApplication;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,7 +18,7 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/send-application', [UserApplication::class, 'show'])->name('send-application');
+Route::get('/send-application', [UserApplicationController::class, 'show'])->name('send-application');
 Route::post('/send-application', [UserApplicationController::class, 'send']);
 Route::post('/upload-curriculum', [UserApplicationController::class, 'upload']);
 
