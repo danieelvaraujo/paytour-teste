@@ -18,11 +18,28 @@ class UserApplicationController extends Controller
             'scholarity' => 'required',
         ]);
 
-        $curriculum = UserApplication::create($request->all());
+        $application = UserApplication::create($request->all());
 
         return response()->json([
             'success' => true,
-            'message' => 'Curriculum created sucessfully',
+            'message' => 'Application sended sucessfully',
+            'data' => $application
+        ], Response::HTTP_OK);
+    }
+
+    public function upload(Request $request)
+    {
+        $filename = $request->file('file')->getClientOriginalName();
+        $request->file('file')->store('curriculums');
+
+        $curriculum = Curriculum::create([
+            'name' => $request->name,
+            'file' => $filename
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Curriculum saved sucessfully',
             'data' => $curriculum
         ], Response::HTTP_OK);
     }
