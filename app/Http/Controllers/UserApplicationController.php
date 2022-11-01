@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Curriculum;
 use App\Models\UserApplication;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
