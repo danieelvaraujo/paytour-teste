@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\UserApplication;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\UploadedFile;
@@ -37,16 +38,25 @@ class UserApplicationTest extends TestCase
     public function test_user_can_upload_a_curriculum()
     {
         $filename = 'usuario-tostador-cv.pdf';
+        $user = UserApplication::create([
+            'name' => 'Usuario Testador',
+            'email' => 'teste@email.com',
+            'telephone' => '84987654321',
+            'desired_job_title' => 'Desenvolvedor backend',
+            'scholarity' => 'Ensino superior completo',
+            'observations' => 'Campo opcional.',
+        ]);
 
         $response = $this->post('/upload-curriculum', [
             'name' => 'Usuario Tostador',
-            'file' => UploadedFile::fake()->create($filename, 1024)
+            'file' => UploadedFile::fake()->create($filename, 1024),
+            'applicant_id' => $user->id
         ]);
 
         $response->assertOk();
-        Storage::disk('curriculums')->assertExists('usuario-tostador-cv.doc');
+        Storage::disk('curriculums')->assertExists('usuario-tostador-cv.pdf');
         $this->assertDatabaseHas('curriculums', [
-            'file' => $filename,
+            'filename' => $filename,
         ]);
     }
 }
