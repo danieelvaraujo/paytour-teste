@@ -49,6 +49,10 @@ class UserApplicationController extends Controller
 
     public function upload(Request $request)
     {
+        $request->validate([
+            'file' => 'mimes:doc,docx,pdf',
+        ]);
+
         $filename = $request->file('file')->getClientOriginalName();
         $request->file('file')->storeAs('curriculums', $filename);
 
