@@ -50,7 +50,7 @@ class UserApplicationController extends Controller
     public function upload(Request $request)
     {
         $request->validate([
-            'file' => 'mimes:doc,docx,pdf',
+            'file' => 'mimes:doc,docx,pdf|max:1024',
         ]);
 
         $filename = $request->file('file')->getClientOriginalName();
