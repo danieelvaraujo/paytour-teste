@@ -15,5 +15,6 @@ class UserApplication extends Model
         'desired_job_title',
         'scholarity',
         'observations',
+        'ip_address'
     ];
 }
