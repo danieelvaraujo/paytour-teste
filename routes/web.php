@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserApplicationController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,6 +18,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('auth.login');
 });
+
+Route::get('/dashboard', [DashboardController::class, 'show']);
 
 Route::get('/send-application', [UserApplicationController::class, 'show']);
 Route::post('/send-application', [UserApplicationController::class, 'send']);
