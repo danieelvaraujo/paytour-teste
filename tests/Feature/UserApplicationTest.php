@@ -85,6 +85,30 @@ class UserApplicationTest extends TestCase
         $response->assertSessionHasErrors();
     }
 
+    public function test_user_cant_upload_a_curriculum_with_size_greater_than_1mb()
+    {
+        // Accepted formats: doc, docx, pdf
+
+        $filename = 'usuario-tostador-cv.doc';
+        $application = UserApplication::create([
+            'name' => 'Usuario Testador',
+            'email' => 'teste@email.com',
+            'telephone' => '84987654321',
+            'desired_job_title' => 'Desenvolvedor backend',
+            'scholarity' => 'Ensino superior completo',
+            'observations' => 'Campo opcional.',
+            'ip_address' => '10.1.0.1'
+        ]);
+
+        $response = $this->post('/upload-curriculum', [
+            'name' => 'Usuario Tostador',
+            'file' => UploadedFile::fake()->create($filename, 2048),
+            'applicant_id' => $application->id
+        ]);
+
+        $response->assertSessionHasErrors();
+    }
+
     public function test_user_can_send_application_with_curriculum_attached()
     {
         $filename = 'usuario-tostador-cv.pdf';
