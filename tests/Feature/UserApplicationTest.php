@@ -98,8 +98,8 @@ class UserApplicationTest extends TestCase
         ]);
 
         $response->assertOk();
-        $this->assertDatabaseHas('attendants_ip', [
-            'ip_number' => '10.1.0.1',
+        $this->assertDatabaseHas('user_applications', [
+            'ip_address' => '10.1.0.1',
         ]);
     }
 }
