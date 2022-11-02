@@ -82,4 +82,24 @@ class UserApplicationTest extends TestCase
             'filename' => $filename,
         ]);
     }
+
+    public function test_user_application_saves_ip_from_applicant()
+    {
+        $this->withServerVariables(['REMOTE_ADDR' => '10.1.0.1']);
+        $filename = 'usuario-tostador-cv.pdf';
+        $response = $this->post('/send-application', [
+            'name' => 'Usuario Testador',
+            'email' => 'teste@email.com',
+            'telephone' => '84987654321',
+            'desired_job_title' => 'Desenvolvedor backend',
+            'scholarity' => 'Ensino superior completo',
+            'observations' => 'Campo opcional.',
+            'file' => UploadedFile::fake()->create($filename, 1024),
+        ]);
+
+        $response->assertOk();
+        $this->assertDatabaseHas('attendants_ip', [
+            'ip_number' => '10.1.0.1',
+        ]);
+    }
 }
