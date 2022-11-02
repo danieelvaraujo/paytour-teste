@@ -24,7 +24,17 @@ class UserApplicationController extends Controller
             'scholarity' => 'required',
         ]);
 
-        $application = UserApplication::create($request->all());
+        $data = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'telephone' => $request->telephone,
+            'desired_job_title' => $request->desired_job_title,
+            'scholarity' => $request->scholarity,
+            'observations' => $request->observations,
+            'ip_address' => $request->ip()
+        ];
+
+        $application = UserApplication::create($data);
 
         if ($request->file()) {
             $this->upload($request);
