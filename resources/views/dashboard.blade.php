@@ -35,7 +35,8 @@
                             text-sm
                             font-medium
                             text-gray-700
-                            shadow-sm hover:bg-gray-50
+                            shadow-sm
+                            hover:bg-gray-50
                             focus:outline-none
                             focus:ring-2
                             focus:ring-indigo-500
@@ -130,6 +131,5 @@
                 </div>
             </div>
         </div> --}}
-
     </body>
 </html>
