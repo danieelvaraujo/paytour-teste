@@ -45,6 +45,7 @@ class UserApplicationTest extends TestCase
             'desired_job_title' => 'Desenvolvedor backend',
             'scholarity' => 'Ensino superior completo',
             'observations' => 'Campo opcional.',
+            'ip_address' => '10.1.0.1'
         ]);
 
         $response = $this->post('/upload-curriculum', [
