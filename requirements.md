@@ -24,3 +24,18 @@
     - Os dados devem ser armazenados em um banco de dados. ✅
         - O IP e a data e hora do envio devem ficar registrados ✅
     - Um e-mail deve ser enviado com os dados do formulário ✅
+
+### Extras
+
+    - Dashboard do usuário
+        - Apresentar as informações da aplicação enviada
+        - Apresentar mensagem caso não haja nenhuma aplicação para o usuário
+    - Enviar currículo separadamente
+    - Editar campos da aplicação enviada
+
+### Regras extras
+
+    - Somente usuários registrados podem cadastrar uma aplicação
+    - Fazer as relações:
+        - Cada aplicação deve pertencer a um usuário
+        - Cada currículo deve pertencer a uma aplicação
