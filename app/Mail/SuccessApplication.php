@@ -6,6 +6,7 @@ use App\Models\UserApplication;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Attachment;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
@@ -34,6 +35,7 @@ class SuccessApplication extends Mailable
     public function envelope()
     {
         return new Envelope(
+            from: new Address(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME')),
             subject: 'Sua aplicação foi recebida!',
         );
     }
