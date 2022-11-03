@@ -23,4 +23,4 @@
     - As bibliotecas devem ser carregadas via composer ✅
     - Os dados devem ser armazenados em um banco de dados. ✅
         - O IP e a data e hora do envio devem ficar registrados ✅
-    - Um e-mail deve ser enviado com os dados do formulário
+    - Um e-mail deve ser enviado com os dados do formulário ✅
