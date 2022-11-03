@@ -17,4 +17,9 @@ class UserApplication extends Model
         'observations',
         'ip_address'
     ];
+
+    public function curriculum()
+    {
+        return $this->hasOne(Curriculum::class);
+    }
 }
