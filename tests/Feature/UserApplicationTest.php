@@ -11,6 +11,17 @@ use Tests\TestCase;
 class UserApplicationTest extends TestCase
 {
     use RefreshDatabase;
+
+    public $userApplicationTest = [
+        'name' => 'Usuario Testador',
+        'email' => 'teste@email.com',
+        'telephone' => '84987654321',
+        'desired_job_title' => 'Desenvolvedor backend',
+        'scholarity' => 'Ensino superior completo',
+        'observations' => 'Campo opcional.',
+        'ip_address' => '10.0.0.1',
+    ];
+
     /**
      * A basic feature test example.
      *
@@ -18,44 +29,27 @@ class UserApplicationTest extends TestCase
      */
     public function test_user_can_send_an_application()
     {
-        $data = [
-            'name' => 'Usuario Testador',
-            'email' => 'teste@email.com',
-            'telephone' => '84987654321',
-            'desired_job_title' => 'Desenvolvedor backend',
-            'scholarity' => 'Ensino superior completo',
-            'observations' => 'Campo opcional.',
-        ];
-
-        $response = $this->post('/send-application', $data);
+        $response = $this->post('/send-application', $this->userApplicationTest);
 
         $response->assertOk();
         $this->assertDatabaseHas('user_applications', [
-            'email' => $data['email'],
+            'email' => $this->userApplicationTest['email'],
         ]);
     }
 
     public function test_user_can_upload_a_curriculum()
     {
-        $filename = 'usuario-tostador-cv.pdf';
-        $application = UserApplication::create([
-            'name' => 'Usuario Testador',
-            'email' => 'teste@email.com',
-            'telephone' => '84987654321',
-            'desired_job_title' => 'Desenvolvedor backend',
-            'scholarity' => 'Ensino superior completo',
-            'observations' => 'Campo opcional.',
-            'ip_address' => '10.1.0.1'
-        ]);
+        $filename = 'usuario-testador-cv.pdf';
+        $application = UserApplication::create($this->userApplicationTest);
 
         $response = $this->post('/upload-curriculum', [
-            'name' => 'Usuario Tostador',
+            'name' => 'Usuario Testador',
             'file' => UploadedFile::fake()->create($filename, 1024),
             'applicant_id' => $application->id
         ]);
 
         $response->assertOk();
-        Storage::disk('curriculums')->assertExists('usuario-tostador-cv.pdf');
+        Storage::disk('curriculums')->assertExists('usuario-testador-cv.pdf');
         $this->assertDatabaseHas('curriculums', [
             'filename' => $filename,
         ]);
@@ -65,19 +59,11 @@ class UserApplicationTest extends TestCase
     {
         // Accepted formats: doc, docx, pdf
 
-        $filename = 'usuario-tostador-cv.jpg';
-        $application = UserApplication::create([
-            'name' => 'Usuario Testador',
-            'email' => 'teste@email.com',
-            'telephone' => '84987654321',
-            'desired_job_title' => 'Desenvolvedor backend',
-            'scholarity' => 'Ensino superior completo',
-            'observations' => 'Campo opcional.',
-            'ip_address' => '10.1.0.1'
-        ]);
+        $filename = 'usuario-testador-cv.jpg';
+        $application = UserApplication::create($this->userApplicationTest);
 
         $response = $this->post('/upload-curriculum', [
-            'name' => 'Usuario Tostador',
+            'name' => 'Usuario Testador',
             'file' => UploadedFile::fake()->create($filename, 1024),
             'applicant_id' => $application->id
         ]);
@@ -89,19 +75,11 @@ class UserApplicationTest extends TestCase
     {
         // Accepted formats: doc, docx, pdf
 
-        $filename = 'usuario-tostador-cv.doc';
-        $application = UserApplication::create([
-            'name' => 'Usuario Testador',
-            'email' => 'teste@email.com',
-            'telephone' => '84987654321',
-            'desired_job_title' => 'Desenvolvedor backend',
-            'scholarity' => 'Ensino superior completo',
-            'observations' => 'Campo opcional.',
-            'ip_address' => '10.1.0.1'
-        ]);
+        $filename = 'usuario-testador-cv.doc';
+        $application = UserApplication::create($this->userApplicationTest);
 
         $response = $this->post('/upload-curriculum', [
-            'name' => 'Usuario Tostador',
+            'name' => 'Usuario Testador',
             'file' => UploadedFile::fake()->create($filename, 2048),
             'applicant_id' => $application->id
         ]);
@@ -111,19 +89,14 @@ class UserApplicationTest extends TestCase
 
     public function test_user_can_send_application_with_curriculum_attached()
     {
-        $filename = 'usuario-tostador-cv.pdf';
-        $response = $this->post('/send-application', [
-            'name' => 'Usuario Testador',
-            'email' => 'teste@email.com',
-            'telephone' => '84987654321',
-            'desired_job_title' => 'Desenvolvedor backend',
-            'scholarity' => 'Ensino superior completo',
-            'observations' => 'Campo opcional.',
-            'file' => UploadedFile::fake()->create($filename, 1024),
-        ]);
+        $filename = 'usuario-testador-cv.pdf';
+        $application = $this->userApplicationTest;
+        $application['file'] = UploadedFile::fake()->create($filename, 1024);
+
+        $response = $this->post('/send-application', $application);
 
         $response->assertOk();
-        Storage::disk('curriculums')->assertExists('usuario-tostador-cv.pdf');
+        Storage::disk('curriculums')->assertExists('usuario-testador-cv.pdf');
         $this->assertDatabaseHas('user_applications', [
             'email' => "teste@email.com",
         ]);
@@ -135,20 +108,38 @@ class UserApplicationTest extends TestCase
     public function test_user_application_saves_ip_from_applicant()
     {
         $this->withServerVariables(['REMOTE_ADDR' => '10.1.0.1']);
-        $filename = 'usuario-tostador-cv.pdf';
-        $response = $this->post('/send-application', [
-            'name' => 'Usuario Testador',
-            'email' => 'teste@email.com',
-            'telephone' => '84987654321',
-            'desired_job_title' => 'Desenvolvedor backend',
-            'scholarity' => 'Ensino superior completo',
-            'observations' => 'Campo opcional.',
-            'file' => UploadedFile::fake()->create($filename, 1024),
-        ]);
+        $filename = 'usuario-testador-cv.pdf';
+        $application = $this->userApplicationTest;
+        $application['file'] = UploadedFile::fake()->create($filename, 1024);
+
+        $response = $this->post('/send-application', $application);
 
         $response->assertOk();
         $this->assertDatabaseHas('user_applications', [
             'ip_address' => '10.1.0.1',
         ]);
+    }
+
+    public function test_sends_an_email_to_user_if_application_is_successful()
+    {
+        $filename = 'usuario-testador-cv.pdf';
+        $application = UserApplication::create($this->userApplicationTest);
+        $application['file'] = UploadedFile::fake()->create($filename, 1024);
+
+        $mailable = new ApplicationSuccess($application);
+
+        $response = $this->post('/send-application', $application);
+
+        $mailable->assertFrom('jeffrey@example.com');
+        $mailable->assertTo('taylor@example.com');
+        $mailable->assertHasSubject('Invoice Paid');
+
+        $mailable->assertSeeInHtml($application['email']);
+        $mailable->assertSeeInHtml('Invoice Paid');
+        $mailable->assertSeeInOrderInHtml(['Invoice Paid', 'Thanks']);
+
+        $mailable->assertHasAttachmentFromStorage('/storage/app/curriculums', 'usuario-testador.pdf', ['mime' => 'application/pdf']);
+
+        $response->assertOk();
     }
 }
