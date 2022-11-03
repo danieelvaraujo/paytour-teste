@@ -20,6 +20,6 @@ class UserApplication extends Model
 
     public function curriculum()
     {
-        return $this->hasOne(Curriculum::class);
+        return $this->hasOne(Curriculum::class, 'applicant_id', 'id');
     }
 }
