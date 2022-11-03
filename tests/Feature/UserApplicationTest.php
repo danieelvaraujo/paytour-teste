@@ -2,10 +2,14 @@
 
 namespace Tests\Feature;
 
+use App\Mail\SuccessApplication;
 use App\Models\UserApplication;
+
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
+
 use Tests\TestCase;
 
 class UserApplicationTest extends TestCase
@@ -122,24 +126,14 @@ class UserApplicationTest extends TestCase
 
     public function test_sends_an_email_to_user_if_application_is_successful()
     {
+        Mail::fake();
         $filename = 'usuario-testador-cv.pdf';
-        $application = UserApplication::create($this->userApplicationTest);
+        $application = $this->userApplicationTest;
         $application['file'] = UploadedFile::fake()->create($filename, 1024);
-
-        $mailable = new ApplicationSuccess($application);
 
         $response = $this->post('/send-application', $application);
 
-        $mailable->assertFrom('jeffrey@example.com');
-        $mailable->assertTo('taylor@example.com');
-        $mailable->assertHasSubject('Invoice Paid');
-
-        $mailable->assertSeeInHtml($application['email']);
-        $mailable->assertSeeInHtml('Invoice Paid');
-        $mailable->assertSeeInOrderInHtml(['Invoice Paid', 'Thanks']);
-
-        $mailable->assertHasAttachmentFromStorage('/storage/app/curriculums', 'usuario-testador.pdf', ['mime' => 'application/pdf']);
-
+        Mail::assertSent(SuccessApplication::class);
         $response->assertOk();
     }
 }
