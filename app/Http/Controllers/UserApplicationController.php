@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\SuccessApplication;
 use App\Models\Curriculum;
 use App\Models\UserApplication;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+
 use Symfony\Component\HttpFoundation\Response;
 
 class UserApplicationController extends Controller
@@ -16,6 +20,7 @@ class UserApplicationController extends Controller
 
     public function send(Request $request)
     {
+
         $request->validate([
             'name' => 'required|min:3',
             'email' => 'required|email',
@@ -39,6 +44,8 @@ class UserApplicationController extends Controller
         if ($request->file()) {
             $this->upload($request);
         }
+
+        Mail::to($request->email)->send(new SuccessApplication($application));
 
         return response()->json([
             'success' => true,
