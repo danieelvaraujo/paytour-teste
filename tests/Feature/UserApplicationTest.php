@@ -134,6 +134,23 @@ class UserApplicationTest extends TestCase
         $response = $this->post('/send-application', $application);
 
         Mail::assertSent(SuccessApplication::class);
+        Mail::assertSent(SuccessApplication::class, function ($mail) use ($application) {
+            return $mail->hasTo($application['email']) &&
+                   $mail->hasFrom(env('MAIL_FROM_ADDRESS'));
+        });
         $response->assertOk();
+    }
+
+    public function test_email_is_showing_correct_values()
+    {
+        $modelApplication = UserApplication::create($this->userApplicationTest);
+        $mailable = new SuccessApplication($modelApplication);
+
+        $mailable->assertHasSubject('Sua aplicação foi recebida!');
+
+        $mailable->assertSeeInHtml($modelApplication->name);
+        $mailable->assertSeeInHtml($modelApplication->email);
+        $mailable->assertSeeInHtml($modelApplication->desired_job_title);
+        $mailable->assertSeeInHtml('Sumário das informações enviadas.');
     }
 }
