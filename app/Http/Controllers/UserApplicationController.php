@@ -7,6 +7,7 @@ use App\Models\Curriculum;
 use App\Models\UserApplication;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 use Symfony\Component\HttpFoundation\Response;
@@ -37,7 +38,7 @@ class UserApplicationController extends Controller
             'scholarity' => $request->scholarity,
             'observations' => $request->observations,
             'ip_address' => $request->ip(),
-            'user_id' => $request->user_id
+            'user_id' => Auth::user()->id
         ];
 
         $application = UserApplication::create($data);
