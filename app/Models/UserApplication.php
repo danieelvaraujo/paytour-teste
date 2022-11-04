@@ -15,11 +15,7 @@ class UserApplication extends Model
         'desired_job_title',
         'scholarity',
         'observations',
-        'ip_address'
+        'ip_address',
+        'user_id'
     ];
-
-    public function curriculum()
-    {
-        return $this->hasOne(Curriculum::class, 'applicant_id', 'id');
-    }
 }
