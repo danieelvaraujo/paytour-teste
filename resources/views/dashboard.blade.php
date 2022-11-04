@@ -55,7 +55,7 @@
         </div>
         @else
         <div class="relative flex items-top justify-center min-h-screen bg-gray-100 py-4">
-            <div class="overflow-hidden bg-white shadow rounded-lg">
+            <div class="overflow-hidden bg-white shadow rounded-lg  min-w-[50%]">
                 <div class="px-4 py-5 px-6">
                     <h3 class="text-lg font-medium leading-6 text-gray-900">Informações da aplicação</h3>
                     <p class="mt-1 max-w-2xl text-sm text-gray-500">Sumário das informações enviadas.</p>
