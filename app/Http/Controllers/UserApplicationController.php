@@ -14,6 +14,14 @@ use Symfony\Component\HttpFoundation\Response;
 
 class UserApplicationController extends Controller
 {
+    public $rules = [
+        'name' => 'required|min:3',
+        'email' => 'required|email',
+        'telephone' => 'required',
+        'desired_job_title' => 'required|string',
+        'scholarity' => 'required',
+    ];
+
     public function show()
     {
         return view('send-application');
@@ -21,14 +29,7 @@ class UserApplicationController extends Controller
 
     public function send(Request $request)
     {
-
-        $request->validate([
-            'name' => 'required|min:3',
-            'email' => 'required|email',
-            'telephone' => 'required',
-            'desired_job_title' => 'required|string',
-            'scholarity' => 'required',
-        ]);
+        $request->validate($this->rules);
 
         $data = [
             'name' => $request->name,
@@ -79,6 +80,34 @@ class UserApplicationController extends Controller
             'success' => true,
             'message' => 'Curriculum saved sucessfully',
             'data' => $curriculum
+        ], Response::HTTP_OK);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'min:3',
+            'telephone' => 'integer',
+            'desired_job_title' => 'string'
+        ]);
+
+        $updated = UserApplication::find($id);
+
+        $updated->name = $request->name ?? $updated->name;
+        $updated->email = $updated->email;
+        $updated->telephone = $request->telephone ?? $updated->telephone;
+        $updated->desired_job_title = $request->desired_job_title ?? $updated->desired_job_title;
+        $updated->scholarity = $request->scholarity ?? $updated->scholarity;
+        $updated->observations = $request->observations  ?? $updated->observations;
+        $updated->ip_address = $updated->ip_address;
+        $updated->user_id = $updated->user_id;
+
+        $updated->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'User application updated.',
+            'data' => $updated
         ], Response::HTTP_OK);
     }
 }
