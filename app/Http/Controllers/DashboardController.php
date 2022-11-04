@@ -13,12 +13,15 @@ class DashboardController extends Controller
     public function __construct()
     {
         $id = Route::current()->parameter('id');
-        $this->userApplication = UserApplication::where('user_id', $id)->first();
+        $this->userApplication = UserApplication::where('user_id', $id)
+            ->first();
     }
 
-    public function show($id)
+    public function show()
     {
-        return view('dashboard', compact($this->userApplication));
+        $userApplication = $this->userApplication;
+
+        return view('dashboard', compact('userApplication'));
     }
 
 }
