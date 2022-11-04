@@ -32,7 +32,7 @@
         - Apresentar mensagem caso não haja nenhuma aplicação para o usuário ✅
     - Salvar curriculo com o nome do usuario separado por um traço e em lowercase
     - Enviar currículo separadamente
-    - Editar campos da aplicação enviada
+    - Editar campos da aplicação enviada ✅
 
 ### Regras extras
 
