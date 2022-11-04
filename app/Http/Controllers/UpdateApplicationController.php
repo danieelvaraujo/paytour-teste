@@ -3,17 +3,28 @@
 namespace App\Http\Controllers;
 
 use App\Models\UserApplication;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 use Symfony\Component\HttpFoundation\Response;
 class UpdateApplicationController extends Controller
 {
-    public function show()
+    public UserApplication $applicationToUpdate;
+
+    public function __construct()
     {
-        return view('update-application');
+        $id = Route::current()->parameter('id');
+        $this->applicationToUpdate = UserApplication::find($id);
     }
 
-    public function update(Request $request, $id)
+    public function show()
+    {
+        $application = $this->applicationToUpdate;
+        return view('update-application', compact('application'));
+    }
+
+    public function update(Request $request)
     {
         $request->validate([
             'name' => 'min:3',
@@ -21,23 +32,21 @@ class UpdateApplicationController extends Controller
             'desired_job_title' => 'string'
         ]);
 
-        $updated = UserApplication::find($id);
+        $this->applicationToUpdate->name = $request->name ?? $this->applicationToUpdate->name;
+        $this->applicationToUpdate->email = $this->applicationToUpdate->email;
+        $this->applicationToUpdate->telephone = $request->telephone ?? $this->applicationToUpdate->telephone;
+        $this->applicationToUpdate->desired_job_title = $request->desired_job_title ?? $this->applicationToUpdate->desired_job_title;
+        $this->applicationToUpdate->scholarity = $request->scholarity ?? $this->applicationToUpdate->scholarity;
+        $this->applicationToUpdate->observations = $request->observations  ?? $this->applicationToUpdate->observations;
+        $this->applicationToUpdate->ip_address = $this->applicationToUpdate->ip_address;
+        $this->applicationToUpdate->user_id = $this->applicationToUpdate->user_id;
 
-        $updated->name = $request->name ?? $updated->name;
-        $updated->email = $updated->email;
-        $updated->telephone = $request->telephone ?? $updated->telephone;
-        $updated->desired_job_title = $request->desired_job_title ?? $updated->desired_job_title;
-        $updated->scholarity = $request->scholarity ?? $updated->scholarity;
-        $updated->observations = $request->observations  ?? $updated->observations;
-        $updated->ip_address = $updated->ip_address;
-        $updated->user_id = $updated->user_id;
-
-        $updated->save();
+        $this->applicationToUpdate->save();
 
         return response()->json([
             'success' => true,
-            'message' => 'User application updated.',
-            'data' => $updated
+            'message' => 'User application this->applicationToUpdate.',
+            'data' => $this->applicationToUpdate
         ], Response::HTTP_OK);
     }
 }
