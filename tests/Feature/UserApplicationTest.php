@@ -8,6 +8,7 @@ use App\Models\UserApplication;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
@@ -25,6 +26,8 @@ class UserApplicationTest extends TestCase
         parent::setUp();
 
         $this->testUser = User::factory()->create();
+        Auth::login($this->testUser);
+
         $this->userApplicationTest = [
             'name' => 'Usuario Testador',
             'email' => 'teste@email.com',
@@ -33,7 +36,7 @@ class UserApplicationTest extends TestCase
             'scholarity' => 'Ensino superior completo',
             'observations' => 'Campo opcional.',
             'ip_address' => '10.0.0.1',
-            'user_id' => $this->testUser->id
+            'user_id' => Auth::user()->id
         ];
     }
 
