@@ -109,6 +109,7 @@
                 </div>
                 <div class="flex justify-center">
                     <button
+                        onclick="window.location.href='{{ url('update-application/' . $userApplication->id)}}'"
                         type="button"
                         class="
                             inline-flex
