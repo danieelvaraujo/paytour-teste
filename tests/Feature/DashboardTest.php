@@ -20,7 +20,7 @@ class AuthenticationTest extends TestCase
         parent::setUp();
 
         $this->testUser = User::factory()->create();
-        $this->userApplicationTest = UserApplication::create([
+        $this->testUserApplication = UserApplication::create([
             'name' => 'Usuario Testador',
             'email' => 'teste@email.com',
             'telephone' => '84987654321',
@@ -41,19 +41,18 @@ class AuthenticationTest extends TestCase
 
     // public function test_dashboard_display_message_if_auth_user_dont_have_application()
     // {
-    //     $response = $this->get('/dashboard');
+    //     $response = $this->get('/dashboard/' . $this->testUser->id);
 
     //     $response->assertSee('Faça uma nova aplicação', false);
 
     // }
 
-    // public function test_dashboard_display_the_authenticated_user_application_if_exists()
-    // {
-    //     $application = UserApplication::create($this->userApplicationTest);
-    //     $response = $this->get('/dashboard');
+    public function test_dashboard_display_the_authenticated_user_application_if_exists()
+    {
+        $response = $this->get('/dashboard/' . $this->testUser->id);
 
-    //     $response->assertSee($application->name, false);
-    //     $response->assertSee($application->email, false);
-    //     $response->assertSee($application->scholarity, false);
-    // }
+        $response->assertSee($this->testUserApplication->name, false);
+        $response->assertSee($this->testUserApplication->email, false);
+        $response->assertSee($this->testUserApplication->scholarity, false);
+    }
 }
