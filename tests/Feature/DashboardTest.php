@@ -56,4 +56,22 @@ class DashboardTest extends TestCase
         $response->assertSee($testUserApplication->email, false);
         $response->assertSee($testUserApplication->scholarity, false);
     }
+
+    public function test_user_sees_update_button_if_an_application_exists()
+    {
+        $application = UserApplication::create([
+            'name' => 'Usuario Testador',
+            'email' => 'teste@email.com',
+            'telephone' => '84987654321',
+            'desired_job_title' => 'Desenvolvedor backend',
+            'scholarity' => 'Ensino superior completo',
+            'observations' => 'Campo opcional.',
+            'ip_address' => '10.0.0.1',
+            'user_id' => $this->testUser->id
+        ]);
+
+        $response = $this->get('/dashboard/' . $this->testUser->id);
+        $response->assertSee('Editar aplicação');
+        $response->assertSee('update-application/' . $application->id);
+    }
 }
