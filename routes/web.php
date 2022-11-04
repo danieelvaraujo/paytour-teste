@@ -24,5 +24,6 @@ Route::get('/dashboard/{id}', [DashboardController::class, 'show']);
 Route::get('/send-application', [UserApplicationController::class, 'show'])->name('send-application');
 Route::post('/send-application', [UserApplicationController::class, 'send']);
 Route::post('/upload-curriculum', [UserApplicationController::class, 'upload']);
+Route::put('/update-application/{id}', [UserApplicationController::class, 'update'])->name('update-application');
 
 require __DIR__.'/auth.php';
