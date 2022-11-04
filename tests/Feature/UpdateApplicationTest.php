@@ -38,6 +38,17 @@ class UpdateApplicationTest extends TestCase
         $response->assertStatus(200);
     }
 
+    public function test_update_application_screen_shows_existing_values()
+    {
+        $response = $this->get('/update-application/' . $this->testApplication->id);
+
+        $response->assertStatus(200);
+        $response->assertSee($this->testApplication->name);
+        $response->assertSee($this->testApplication->email);
+        $response->assertSee($this->testApplication->desired_job_title);
+        $response->assertSee($this->testApplication->scholarity);
+    }
+
     public function test_user_can_update_his_application()
     {
         $dataToChange = [
