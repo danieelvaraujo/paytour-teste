@@ -90,11 +90,10 @@
                                 <span class="block text-sm font-medium text-gray-700 mt-px pt-2">Observações</span>
                                 <div class="mt-1 col-span-2 mt-0">
                                     <textarea
-                                        value="{{ old('observations', $application->observations) }}"
                                         name="observations"
                                         rows="3"
                                         class="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm"
-                                    ></textarea>
+                                    >{{ old('observations', $application->observations) }}</textarea>
                                 </div>
                             </div>
 
@@ -165,6 +164,7 @@
                 <div class="pt-5">
                   <div class="flex justify-end">
                     <button
+                        onclick="window.location.href='{{ url()->previous() }}'"
                         type="button"
                         class="rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                     >
