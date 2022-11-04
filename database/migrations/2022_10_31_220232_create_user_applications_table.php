@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name')->required();
             $table->string('email')->required();
-            $table->string('telephone')->required();
+            $table->bigInteger('telephone')->required();
             $table->string('desired_job_title')->required();
             $table->string('scholarity')->required();
             $table->string('observations')->nullable()->default(null);
