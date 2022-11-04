@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\SuccessApplication;
 use App\Models\Curriculum;
+use App\Models\Scholarity;
 use App\Models\UserApplication;
 
 use Illuminate\Http\Request;
@@ -24,7 +25,9 @@ class UserApplicationController extends Controller
 
     public function show()
     {
-        return view('send-application');
+        $scholarities = Scholarity::get();
+
+        return view('send-application', compact('scholarities'));
     }
 
     public function send(Request $request)
