@@ -156,33 +156,33 @@ class UserApplicationTest extends TestCase
         ]);
     }
 
-    // public function test_sends_an_email_to_user_if_application_is_successful()
-    // {
-    //     Mail::fake();
-    //     $filename = 'usuario-testador-cv.pdf';
-    //     $application = $this->userApplicationTest;
-    //     $application['file'] = UploadedFile::fake()->create($filename, 1024);
+    public function test_sends_an_email_to_user_if_application_is_successful()
+    {
+        Mail::fake();
+        $filename = 'usuario-testador-cv.pdf';
+        $application = $this->userApplicationTest;
+        $application['file'] = UploadedFile::fake()->create($filename, 1024);
 
-    //     $response = $this->post('/send-application', $application);
+        $response = $this->post('/send-application', $application);
 
-    //     Mail::assertSent(SuccessApplication::class);
-    //     Mail::assertSent(SuccessApplication::class, function ($mail) use ($application) {
-    //         return $mail->hasTo($application['email']) &&
-    //                $mail->hasFrom(env('MAIL_FROM_ADDRESS'));
-    //     });
-    //     $response->assertOk();
-    // }
+        Mail::assertSent(SuccessApplication::class);
+        Mail::assertSent(SuccessApplication::class, function ($mail) use ($application) {
+            return $mail->hasTo($application['email']) &&
+                   $mail->hasFrom(env('MAIL_FROM_ADDRESS'));
+        });
+        $response->assertOk();
+    }
 
-    // public function test_email_is_showing_correct_values()
-    // {
-    //     $modelApplication = UserApplication::create($this->userApplicationTest);
-    //     $mailable = new SuccessApplication($modelApplication);
+    public function test_email_is_showing_correct_values()
+    {
+        $modelApplication = UserApplication::create($this->userApplicationTest);
+        $mailable = new SuccessApplication($modelApplication);
 
-    //     $mailable->assertHasSubject('Sua aplicação foi recebida!');
+        $mailable->assertHasSubject('Sua aplicação foi recebida!');
 
-    //     $mailable->assertSeeInHtml($modelApplication->name);
-    //     $mailable->assertSeeInHtml($modelApplication->email);
-    //     $mailable->assertSeeInHtml($modelApplication->desired_job_title);
-    //     $mailable->assertSeeInHtml('Sumário das informações enviadas.');
-    // }
+        $mailable->assertSeeInHtml($modelApplication->name);
+        $mailable->assertSeeInHtml($modelApplication->email);
+        $mailable->assertSeeInHtml($modelApplication->desired_job_title);
+        $mailable->assertSeeInHtml('Sumário das informações enviadas.');
+    }
 }
