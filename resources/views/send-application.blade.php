@@ -19,15 +19,15 @@
     <body class="antialiased">
         <div class="relative flex items-top justify-center min-h-screen bg-gray-100 py-4">
             <form
-                class="space-y-8 divide-y divide-gray-200"
+                class="space-y-8"
                 method="post"
                 action="{{ url('send-application') }}"
                 enctype="multipart/form-data"
             >
                 @csrf
-                <div>
+                <div class="flex flex-col items-center">
                     <h2 class="text-lg font-medium leading-6 text-gray-900">Seja bem vindo, candidato.</h2>
-                    <p class="mt-1 max-w-2xl text-sm text-gray-500">Preencha todos os campos necessários, e você pode enviar também o seu currículo para nós.</p>
+                    <p class="mt-1 max-w-2xl text-sm text-gray-500">Preencha todos os campos necessários. Você pode enviar também o seu currículo para nós.</p>
                 </div>
 
                 <div class="space-y-8 divide-y divide-gray-200">
