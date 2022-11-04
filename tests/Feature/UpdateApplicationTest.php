@@ -12,17 +12,14 @@ class UpdateApplicationTest extends TestCase
     use RefreshDatabase;
 
     public User $testUser;
+    public UserApplication $testApplication;
 
     protected function setUp(): void
     {
         parent::setUp();
 
         $this->testUser = User::factory()->create();
-    }
-
-    public function test_update_application_screen_can_be_rendered()
-    {
-        $application = UserApplication::create([
+        $this->testApplication = UserApplication::create([
             'name' => 'Usuario Testador',
             'email' => 'teste@email.com',
             'telephone' => '84987654321',
@@ -32,9 +29,28 @@ class UpdateApplicationTest extends TestCase
             'ip_address' => '10.0.0.1',
             'user_id' => $this->testUser->id
         ]);
+    }
 
-        $response = $this->get('/update-application/' . $application->id);
+    public function test_update_application_screen_can_be_rendered()
+    {
+        $response = $this->get('/update-application/' . $this->testApplication->id);
 
         $response->assertStatus(200);
+    }
+
+    public function test_user_can_update_his_application()
+    {
+        $dataToChange = [
+            'name' => 'Usuario Atualizado',
+            'desired_job_title' => 'Desenvolvedor front-end'
+        ];
+
+        $response = $this->put('/update-application/' . $this->testApplication->id, $dataToChange);
+        $response->assertOk();
+
+        $this->assertDatabaseHas('user_applications', [
+            'name' => 'Usuario Atualizado',
+            'desired_job_title' => 'Desenvolvedor front-end'
+        ]);
     }
 }

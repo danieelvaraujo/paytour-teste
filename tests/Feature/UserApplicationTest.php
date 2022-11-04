@@ -188,21 +188,4 @@ class UserApplicationTest extends TestCase
         $mailable->assertSeeInHtml($modelApplication->desired_job_title);
         $mailable->assertSeeInHtml('Sumário das informações enviadas.');
     }
-
-    public function test_user_can_update_his_application()
-    {
-        $application = UserApplication::create($this->userApplicationTest);
-        $dataToChange = [
-            'name' => 'Usuario Atualizado',
-            'desired_job_title' => 'Desenvolvedor front-end'
-        ];
-
-        $response = $this->put('/update-application/' . $application->id, $dataToChange);
-        $response->assertOk();
-
-        $this->assertDatabaseHas('user_applications', [
-            'name' => 'Usuario Atualizado',
-            'desired_job_title' => 'Desenvolvedor front-end'
-        ]);
-    }
 }
