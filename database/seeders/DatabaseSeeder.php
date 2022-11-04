@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        \App\Models\Scholarity::factory()->create([
+        \App\Models\Scholarity::insert([
             [
                 'title' => 'Ensino fundamental incompleto',
                 'value' => 'fundamental_incompleto'
