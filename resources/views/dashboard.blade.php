@@ -19,8 +19,33 @@
     <body class="antialiased">
         @if (!$userApplication)
         <div>
-            <div class="border-b border-gray-200 px-10 py-5 flex items-center justify-start">
+            <div class="border-b border-gray-200 px-10 py-5 flex items-center justify-between">
                 <h3 class="text-lg font-medium leading-6 text-gray-900">Aplicação</h3>
+                <div class="mt-3 flex sm:mt-0 sm:ml-4">
+                    <button
+                        onclick="window.location.href='{{route('send-application')}}'"
+                        type="button"
+                        class="
+                            inline-flex
+                            items-center
+                            rounded-md
+                            border
+                            border-gray-300
+                            bg-white
+                            px-4
+                            py-2
+                            text-sm
+                            font-medium
+                            text-gray-700
+                            shadow-sm hover:bg-gray-50
+                            focus:outline-none
+                            focus:ring-2
+                            focus:ring-indigo-500
+                            focus:ring-offset-2"
+                    >
+                        Nova aplicação
+                    </button>
+                </div>
             </div>
 
             <div class="flex justify-center items-center mt-3">
