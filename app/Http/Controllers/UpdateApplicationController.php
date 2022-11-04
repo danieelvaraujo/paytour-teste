@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Scholarity;
 use App\Models\UserApplication;
 
 use Illuminate\Http\Request;
@@ -11,17 +12,21 @@ use Symfony\Component\HttpFoundation\Response;
 class UpdateApplicationController extends Controller
 {
     public UserApplication $applicationToUpdate;
+    public $scholarities;
 
     public function __construct()
     {
         $id = Route::current()->parameter('id');
+
+        $this->scholarities = Scholarity::get();
         $this->applicationToUpdate = UserApplication::find($id);
     }
 
     public function show()
     {
         $application = $this->applicationToUpdate;
-        return view('update-application', compact('application'));
+        $scholarities = $this->scholarities;
+        return view('update-application', compact('application', 'scholarities'));
     }
 
     public function update(Request $request)

@@ -148,12 +148,13 @@
                                         class="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 max-w-xs text-sm"
                                     >
                                         <option value="">-- Escolha um --</option>
-                                        <option value="fundamental_incompleto">Ensino fundamental incompleto</option>
-                                        <option value="fundamental_completo">Ensino fundamental completo</option>
-                                        <option value="medio_incompleto">Ensino médio incompleto</option>
-                                        <option value="medio_completo">Ensino médio completo</option>
-                                        <option value="superior_incompleto">Ensino superior incompleto</option>
-                                        <option value="superior_completo">Ensino superior completo</option>
+                                        @foreach ($scholarities as $scholarity)
+                                            @if ($application->scholarity == $scholarity->value)
+                                                <option selected value="{{ $scholarity->value }}">{{ $scholarity->title }}</option>
+                                            @else
+                                                <option value="{{ $scholarity->value }}">{{ $scholarity->title }}</option>
+                                            @endif
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
