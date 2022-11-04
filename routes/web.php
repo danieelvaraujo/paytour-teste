@@ -19,7 +19,7 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-Route::get('/dashboard', [DashboardController::class, 'show']);
+Route::get('/dashboard/{id}', [DashboardController::class, 'show']);
 
 Route::get('/send-application', [UserApplicationController::class, 'show']);
 Route::post('/send-application', [UserApplicationController::class, 'send']);
