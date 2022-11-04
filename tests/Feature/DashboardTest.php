@@ -11,26 +11,30 @@ class AuthenticationTest extends TestCase
 {
     use RefreshDatabase;
 
-    public $userTest = [
-        'name' => 'Usuario Teste',
-        'email' => 'usuario@teste.com',
-        'password' => 'root'
-    ];
+    public User $testUser;
+    public UserApplication $testUserApplication;
 
-    public $userApplicationTest = [
-        'name' => 'Usuario Testador',
-        'email' => 'teste@email.com',
-        'telephone' => '84987654321',
-        'desired_job_title' => 'Desenvolvedor backend',
-        'scholarity' => 'Ensino superior completo',
-        'observations' => 'Campo opcional.',
-        'ip_address' => '10.0.0.1',
-    ];
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->testUser = User::factory()->create();
+        $this->userApplicationTest = UserApplication::create([
+            'name' => 'Usuario Testador',
+            'email' => 'teste@email.com',
+            'telephone' => '84987654321',
+            'desired_job_title' => 'Desenvolvedor backend',
+            'scholarity' => 'Ensino superior completo',
+            'observations' => 'Campo opcional.',
+            'ip_address' => '10.0.0.1',
+            'user_id' => $this->testUser->id
+        ]);
+    }
 
     public function test_dashboard_screen_can_be_rendered()
     {
-        $user = User::create($this->userTest);
-        $response = $this->get('/dashboard/' . $user->id);
+        $response = $this->get('/dashboard/' . $this->testUser->id);
 
         $response->assertStatus(200);
     }
