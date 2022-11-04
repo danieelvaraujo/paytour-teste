@@ -19,33 +19,8 @@
     <body class="antialiased">
         @if (!$userApplication)
         <div>
-            <div class="border-b border-gray-200 px-10 py-5 sm:flex sm:items-center sm:justify-between">
+            <div class="border-b border-gray-200 px-10 py-5 flex items-center justify-start">
                 <h3 class="text-lg font-medium leading-6 text-gray-900">Aplicação</h3>
-                <div class="mt-3 flex sm:mt-0 sm:ml-4">
-                    <button
-                        type="button"
-                        class="
-                            inline-flex
-                            items-center
-                            rounded-md
-                            border
-                            border-gray-300
-                            bg-white
-                            px-4
-                            py-2
-                            text-sm
-                            font-medium
-                            text-gray-700
-                            shadow-sm
-                            hover:bg-gray-50
-                            focus:outline-none
-                            focus:ring-2
-                            focus:ring-indigo-500
-                            focus:ring-offset-2"
-                    >
-                        Nova aplicação
-                    </button>
-                </div>
             </div>
 
             <div class="flex justify-center items-center mt-3">
@@ -64,27 +39,27 @@
                     <dl class="divide-y divide-gray-200">
                         <div class="py-4 grid grid-cols-3 gap-4 py-5 px-6">
                             <dt class="text-sm font-medium text-gray-500">Nome completo</dt>
-                            <dd class="mt-1 text-sm text-gray-900 col-span-2 mt-0">Margot Foster</dd>
+                            <dd class="mt-1 text-sm text-gray-900 col-span-2 mt-0">{{ $userApplication->name }}</dd>
                         </div>
                         <div class="py-4 grid grid-cols-3 gap-4 py-5 px-6">
                             <dt class="text-sm font-medium text-gray-500">Email</dt>
-                            <dd class="mt-1 text-sm text-gray-900 col-span-2 mt-0">margotfoster@example.com</dd>
+                            <dd class="mt-1 text-sm text-gray-900 col-span-2 mt-0">{{ $userApplication->email }}</dd>
                         </div>
                         <div class="py-4 grid grid-cols-3 gap-4 py-5 px-6">
                             <dt class="text-sm font-medium text-gray-500">Telefone</dt>
-                            <dd class="mt-1 text-sm text-gray-900 col-span-2 mt-0">(84) 987-418-355</dd>
+                            <dd class="mt-1 text-sm text-gray-900 col-span-2 mt-0">{{ $userApplication->telephone }}</dd>
                         </div>
                         <div class="py-4 grid grid-cols-3 gap-4 py-5 px-6">
                             <dt class="text-sm font-medium text-gray-500">Vaga desejada</dt>
-                            <dd class="mt-1 text-sm text-gray-900 col-span-2 mt-0">Desenvolvedor backend</dd>
+                            <dd class="mt-1 text-sm text-gray-900 col-span-2 mt-0">{{ $userApplication->desired_job_title }}</dd>
                         </div>
                         <div class="py-4 grid grid-cols-3 gap-4 py-5 px-6">
                             <dt class="text-sm font-medium text-gray-500">Escolaridade</dt>
-                            <dd class="mt-1 text-sm text-gray-900 col-span-2 mt-0">Ensino superior completo</dd>
+                            <dd class="mt-1 text-sm text-gray-900 col-span-2 mt-0">{{ $userApplication->scholarity }}</dd>
                         </div>
                         <div class="py-4 grid grid-cols-3 gap-4 py-5 px-6">
                             <dt class="text-sm font-medium text-gray-500">Observações</dt>
-                            <dd class="mt-1 text-sm text-gray-900 col-span-2 mt-0">Fugiat ipsum ipsum deserunt culpa aute sint do nostrud anim incididunt cillum culpa consequat. Excepteur qui ipsum aliquip consequat sint. Sit id mollit nulla mollit nostrud in ea officia proident. Irure nostrud pariatur mollit ad adipisicing reprehenderit deserunt qui eu.</dd>
+                            <dd class="mt-1 text-sm text-gray-900 col-span-2 mt-0">{{ $userApplication->observations }}</dd>
                         </div>
                         <div class="py-4 grid grid-cols-3 gap-4 py-5 px-6">
                             <dt class="text-sm font-medium text-gray-500">Anexos</dt>
