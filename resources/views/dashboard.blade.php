@@ -17,6 +17,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="antialiased">
+        @if (!$userApplication)
         <div>
             <div class="border-b border-gray-200 px-10 py-5 sm:flex sm:items-center sm:justify-between">
                 <h3 class="text-lg font-medium leading-6 text-gray-900">Aplicação</h3>
@@ -52,7 +53,8 @@
 
             </div>
         </div>
-        {{-- <div class="relative flex items-top justify-center min-h-screen bg-gray-100 py-4">
+        @else
+        <div class="relative flex items-top justify-center min-h-screen bg-gray-100 py-4">
             <div class="overflow-hidden bg-white shadow rounded-lg">
                 <div class="px-4 py-5 px-6">
                     <h3 class="text-lg font-medium leading-6 text-gray-900">Informações da aplicação</h3>
@@ -130,6 +132,7 @@
                     </button>
                 </div>
             </div>
-        </div> --}}
+        </div>
+        @endif
     </body>
 </html>
