@@ -21,7 +21,7 @@ Route::get('/', function () {
 
 Route::get('/dashboard/{id}', [DashboardController::class, 'show']);
 
-Route::get('/send-application', [UserApplicationController::class, 'show']);
+Route::get('/send-application', [UserApplicationController::class, 'show'])->name('send-application');
 Route::post('/send-application', [UserApplicationController::class, 'send']);
 Route::post('/upload-curriculum', [UserApplicationController::class, 'upload']);
 
