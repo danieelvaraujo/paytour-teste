@@ -42,6 +42,7 @@
                                 <div class="mt-1 col-span-2 mt-0">
                                     <div class="flex max-w-lg rounded-md shadow-sm">
                                         <input
+                                            value="{{ old('name', $application->name) }}"
                                             required
                                             type="text"
                                             name="name"
@@ -58,7 +59,8 @@
                                     <div class="flex max-w-lg rounded-md shadow-sm">
                                         <span class="inline-flex items-center rounded-l-md border border-r-0 border-gray-300 bg-gray-50 px-3 text-gray-500 text-sm">@</span>
                                         <input
-                                            required
+                                            value="{{ old('email', $application->email) }}"
+                                            readonly
                                             type="email"
                                             name="email"
                                             autocomplete="email"
@@ -73,6 +75,7 @@
                                 <div class="mt-1 col-span-2 mt-0">
                                     <div class="flex max-w-lg rounded-md shadow-sm">
                                         <input
+                                            value="{{ old('telephone', $application->telephone) }}"
                                             required
                                             type="text"
                                             name="telephone"
@@ -87,6 +90,7 @@
                                 <span class="block text-sm font-medium text-gray-700 mt-px pt-2">Observações</span>
                                 <div class="mt-1 col-span-2 mt-0">
                                     <textarea
+                                        value="{{ old('observations', $application->observations) }}"
                                         name="observations"
                                         rows="3"
                                         class="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm"
@@ -126,6 +130,7 @@
                                     class="block text-sm font-medium text-gray-700 mt-px pt-2">Cargo desejado</label>
                                 <div class="mt-1 col-span-2 mt-0">
                                     <input
+                                        value="{{ old('desired_job_title', $application->desired_job_title) }}"
                                         type="text"
                                         name="desired_job_title"
                                         class="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 max-w-xs text-sm"
@@ -139,6 +144,7 @@
                                     class="block text-sm font-medium text-gray-700 mt-px pt-2">Escolaridade</label>
                                 <div class="mt-1 col-span-2 mt-0">
                                     <select
+                                        value="{{ old('scholarity', $application->scholarity) }}"
                                         name="scholarity"
                                         class="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 max-w-xs text-sm"
                                     >
