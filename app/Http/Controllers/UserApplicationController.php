@@ -36,7 +36,8 @@ class UserApplicationController extends Controller
             'desired_job_title' => $request->desired_job_title,
             'scholarity' => $request->scholarity,
             'observations' => $request->observations,
-            'ip_address' => $request->ip()
+            'ip_address' => $request->ip(),
+            'user_id' => $request->user_id
         ];
 
         $application = UserApplication::create($data);
