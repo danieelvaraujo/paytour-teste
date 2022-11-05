@@ -53,11 +53,7 @@ class UserApplicationController extends Controller
 
         Mail::to($request->email)->send(new SuccessApplication($application));
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Application sended sucessfully',
-            'data' => $application
-        ], Response::HTTP_OK);
+        return redirect()->to('dashboard/' . $application->id)->with('success', 'Aplicação enviada com sucesso.');
     }
 
     public function upload(Request $request)
@@ -74,16 +70,12 @@ class UserApplicationController extends Controller
 
         $request->file('file')->storeAs('curriculums', $fileToUpload);
 
-        $curriculum = Curriculum::create([
+        Curriculum::create([
             'name' => Auth::user()->name,
             'filename' => $fileToUpload,
             'applicant_id' => $application->id
         ]);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Curriculum saved sucessfully',
-            'data' => $curriculum
-        ], Response::HTTP_OK);
+        return redirect()->to('dashboard/' . $application->id)->with('success', 'Currículo enviado com sucesso.');
     }
 }

@@ -7,7 +7,7 @@
             <h3 class="text-lg font-medium leading-6 text-gray-900">Aplicação</h3>
             <div class="mt-3 flex sm:mt-0 sm:ml-4">
                 <button
-                    onclick="window.location.href='{{route('send-application')}}'"
+                    onclick="window.location.href='{{route('send.application')}}'"
                     type="button"
                     class="
                         inline-flex
