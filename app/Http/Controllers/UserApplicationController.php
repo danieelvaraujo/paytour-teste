@@ -66,17 +66,18 @@ class UserApplicationController extends Controller
             'file' => 'mimes:doc,docx,pdf|max:1024',
         ]);
 
-        $filename = $request->file('file')->getClientOriginalName();
-        $request->file('file')->storeAs('curriculums', $filename);
+        $application = UserApplication::where('email', Auth::user()->email)->first();
 
-        if (!isset($request->applicant_id)) {
-            $applicant = UserApplication::where('email', $request->email)->first();
-        }
+        $filename = str_replace(' ', '-', strtolower(Auth::user()->name)) . '-cv.';
+        $extension = $request->file('file')->getClientOriginalExtension();
+        $fileToUpload = $filename . $extension;
+
+        $request->file('file')->storeAs('curriculums', $fileToUpload);
 
         $curriculum = Curriculum::create([
-            'name' => $request->name,
-            'filename' => $filename,
-            'applicant_id' => $request->applicant_id ?? $applicant->id
+            'name' => Auth::user()->name,
+            'filename' => $fileToUpload,
+            'applicant_id' => $application->id
         ]);
 
         return response()->json([
