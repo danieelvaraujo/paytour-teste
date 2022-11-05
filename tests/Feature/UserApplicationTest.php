@@ -130,7 +130,7 @@ class UserApplicationTest extends TestCase
         $response = $this->post('/send-application', $application);
 
         $response->assertOk();
-        Storage::disk('curriculums')->assertExists('usuario-testador-cv.pdf');
+        Storage::disk('curriculums')->assertExists($filename);
         $this->assertDatabaseHas('user_applications', [
             'email' => Auth::user()->email,
         ]);
