@@ -2,13 +2,14 @@
 
 namespace Tests\Feature;
 
+use App\Models\Curriculum;
 use App\Models\User;
 use App\Models\UserApplication;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-
 use Tests\TestCase;
 
 class DashboardTest extends TestCase
@@ -16,14 +17,24 @@ class DashboardTest extends TestCase
     use RefreshDatabase;
 
     public User $testUser;
-    public UserApplication $testUserApplication;
-
+    public $testApplication;
 
     protected function setUp(): void
     {
         parent::setUp();
 
         $this->testUser = User::factory()->create();
+        $this->testApplication = [
+            'name' => $this->testUser->name,
+            'email' => $this->testUser->email,
+            'telephone' => '84987654321',
+            'desired_job_title' => 'Desenvolvedor backend',
+            'scholarity' => 'Ensino superior completo',
+            'observations' => 'Campo opcional.',
+            'ip_address' => '10.0.0.1',
+            'user_id' => $this->testUser->id
+        ];
+
         Auth::login($this->testUser);
     }
 
@@ -44,39 +55,45 @@ class DashboardTest extends TestCase
 
     public function test_dashboard_display_the_authenticated_user_application_if_exists()
     {
-        $testUserApplication = UserApplication::create([
-            'name' => 'Usuario Testador',
-            'email' => 'teste@email.com',
-            'telephone' => '84987654321',
-            'desired_job_title' => 'Desenvolvedor backend',
-            'scholarity' => 'Ensino superior completo',
-            'observations' => 'Campo opcional.',
-            'ip_address' => '10.0.0.1',
-            'user_id' => $this->testUser->id
-        ]);
-
+        $application = UserApplication::create($this->testApplication);
         $response = $this->get('/dashboard/' . $this->testUser->id);
 
-        $response->assertSee($testUserApplication->name, false);
-        $response->assertSee($testUserApplication->email, false);
-        $response->assertSee($testUserApplication->scholarity, false);
+        $response->assertSee($application->name, false);
+        $response->assertSee($application->email, false);
+        $response->assertSee($application->scholarity, false);
     }
 
     public function test_user_sees_update_button_if_an_application_exists()
     {
-        $application = UserApplication::create([
-            'name' => 'Usuario Testador',
-            'email' => 'teste@email.com',
-            'telephone' => '84987654321',
-            'desired_job_title' => 'Desenvolvedor backend',
-            'scholarity' => 'Ensino superior completo',
-            'observations' => 'Campo opcional.',
-            'ip_address' => '10.0.0.1',
-            'user_id' => $this->testUser->id
-        ]);
-
+        $application = UserApplication::create($this->testApplication);
         $response = $this->get('/dashboard/' . $this->testUser->id);
+
         $response->assertSee('Editar aplicação');
         $response->assertSee('update-application/' . $application->id);
+    }
+
+    public function simulateStorageCurriculum()
+    {
+        $application = UserApplication::create($this->testApplication);
+        $filename = str_replace(' ', '-', strtolower(Auth::user()->name)) . '-cv.pdf';
+        $mockFile = UploadedFile::fake()->create($filename, 1024);
+
+        Storage::disk('local')->put('curriculums', $mockFile);
+
+        Curriculum::create([
+            'name' => Auth::user()->name,
+            'filename' => $filename,
+            'applicant_id' => $application->id
+        ]);
+    }
+
+    public function test_user_sees_his_uploaded_curriculum_in_dashboard()
+    {
+        $this->simulateStorageCurriculum();
+
+        $filename = str_replace(' ', '-', strtolower(Auth::user()->name)) . '-cv.pdf';
+        $response = $this->get('/dashboard/' . $this->testUser->id);
+
+        $response->assertSee($filename, false);
     }
 }
