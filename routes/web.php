@@ -22,15 +22,15 @@ Route::get('/', function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard/{id}', [DashboardController::class, 'show']);
-    Route::get('/dashboard/{id}/download', [DashboardController::class, 'download'])->name('download');
+    Route::get('/dashboard/{id}/download', [DashboardController::class, 'download']);
 
-    Route::get('/send-application', [UserApplicationController::class, 'show'])->name('send-application');
+    Route::get('/send-application', [UserApplicationController::class, 'show']);
     Route::post('/send-application', [UserApplicationController::class, 'send']);
 
     Route::post('/upload-curriculum', [UserApplicationController::class, 'upload']);
 
-    Route::get('/update-application/{id}', [UpdateApplicationController::class, 'show'])->name('update-application');
-    Route::put('/update-application/{id}', [UpdateApplicationController::class, 'update']);
+    Route::get('/update-application/{id}', [UpdateApplicationController::class, 'show']);
+    Route::put('/update-application/{id}', [UpdateApplicationController::class, 'update'])->name('update.application');
 });
 
 require __DIR__.'/auth.php';
