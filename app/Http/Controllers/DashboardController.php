@@ -3,24 +3,31 @@
 namespace App\Http\Controllers;
 
 use App\Models\UserApplication;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 class DashboardController extends Controller
 {
     public $id;
+    public $userApplication;
 
     public function __construct()
     {
-        $this->id = Route::current()->parameter('id');
+        $id = Route::current()->parameter('id');
+        $this->userApplication = UserApplication::where('user_id', $id)->first();
     }
 
     public function show()
     {
-        $userApplication = UserApplication::where('user_id', $this->id)
-            ->first();
+        $userApplication = $this->userApplication;
 
         return view('dashboard', compact('userApplication'));
     }
 
+    public function download()
+    {
+        $file = $this->userApplication->curriculum()->first()->filename;
+        return response()->download(
+            storage_path('/app/curriculums/'. $file)
+        );
+    }
 }

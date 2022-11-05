@@ -98,8 +98,30 @@
                                                 </svg>
                                                 <span class="ml-2 w-0 flex-1 truncate">{{ $userApplication->curriculum()->first()->filename }}</span>
                                             </div>
-                                            <div class="ml-4 flex-shrink-0">
-                                                <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">Download</a>
+
+                                            <div class="flex flex-col text-sm text-gray-600">
+                                                <a
+                                                    href={{ $userApplication->id . "/download" }}
+                                                    class="
+                                                        items-center
+                                                        rounded-md
+                                                        border
+                                                        border-gray-300
+                                                        bg-white
+                                                        mt-2
+                                                        px-2
+                                                        py-1
+                                                        text-sm
+                                                        font-medium
+                                                        text-gray-700
+                                                        shadow-sm hover:bg-gray-50
+                                                        focus:outline-none
+                                                        focus:ring-2
+                                                        focus:ring-indigo-500
+                                                        focus:ring-offset-2"
+                                                >
+                                                    Baixar
+                                                </a>
                                             </div>
                                         </li>
                                     </ul>

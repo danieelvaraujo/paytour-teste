@@ -22,9 +22,11 @@ Route::get('/', function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard/{id}', [DashboardController::class, 'show']);
+    Route::get('/dashboard/{id}/download', [DashboardController::class, 'download'])->name('download');
 
     Route::get('/send-application', [UserApplicationController::class, 'show'])->name('send-application');
     Route::post('/send-application', [UserApplicationController::class, 'send']);
+
     Route::post('/upload-curriculum', [UserApplicationController::class, 'upload']);
 
     Route::get('/update-application/{id}', [UpdateApplicationController::class, 'show'])->name('update-application');
