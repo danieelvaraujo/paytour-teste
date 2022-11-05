@@ -4,11 +4,13 @@
 <div class="relative flex items-top justify-center min-h-screen bg-gray-100 py-4">
     <form
         class="space-y-8"
-        method="put"
-        action="{{ url('update-application') }}"
+        method="POST"
+        action="{{ route('update.application', $application->id) }}"
         enctype="multipart/form-data"
     >
         @csrf
+        {{ method_field('PUT') }}
+
         <div class="flex flex-col items-center">
             <h2 class="text-lg font-medium leading-6 text-gray-900">Olá novamente, candidato.</h2>
             <p class="mt-1 max-w-2xl text-sm text-gray-500">Preencha todos os campos que quiser alterar.</p>
