@@ -57,17 +57,17 @@ class UserApplicationTest extends TestCase
 
     public function test_user_can_upload_a_curriculum()
     {
-        $filename = 'usuario-testador-cv.pdf';
-        $application = UserApplication::create($this->userApplicationTest);
+        UserApplication::create($this->userApplicationTest);
+
+        $filename = str_replace(' ', '-', strtolower(Auth::user()->name)) . '-cv.pdf';
+        $mockFile = UploadedFile::fake()->create($filename, 1024);
 
         $response = $this->post('/upload-curriculum', [
-            'name' => 'Usuario Testador',
-            'file' => UploadedFile::fake()->create($filename, 1024),
-            'applicant_id' => $application->id
+            'file' => $mockFile
         ]);
 
         $response->assertOk();
-        Storage::disk('curriculums')->assertExists('usuario-testador-cv.pdf');
+        Storage::disk('curriculums')->assertExists($filename);
         $this->assertDatabaseHas('curriculums', [
             'filename' => $filename,
         ]);
@@ -96,12 +96,10 @@ class UserApplicationTest extends TestCase
         // Accepted formats: doc, docx, pdf
 
         $filename = 'usuario-testador-cv.jpg';
-        $application = UserApplication::create($this->userApplicationTest);
+        UserApplication::create($this->userApplicationTest);
 
         $response = $this->post('/upload-curriculum', [
-            'name' => 'Usuario Testador',
             'file' => UploadedFile::fake()->create($filename, 1024),
-            'applicant_id' => $application->id
         ]);
 
         $response->assertSessionHasErrors();
@@ -112,12 +110,10 @@ class UserApplicationTest extends TestCase
         // Accepted formats: doc, docx, pdf
 
         $filename = 'usuario-testador-cv.doc';
-        $application = UserApplication::create($this->userApplicationTest);
+        UserApplication::create($this->userApplicationTest);
 
         $response = $this->post('/upload-curriculum', [
-            'name' => 'Usuario Testador',
             'file' => UploadedFile::fake()->create($filename, 2048),
-            'applicant_id' => $application->id
         ]);
 
         $response->assertSessionHasErrors();
@@ -125,16 +121,18 @@ class UserApplicationTest extends TestCase
 
     public function test_user_can_send_application_with_curriculum_attached()
     {
-        $filename = 'usuario-testador-cv.pdf';
+        $filename = str_replace(' ', '-', strtolower(Auth::user()->name)) . '-cv.pdf';
+        $mockFile = UploadedFile::fake()->create($filename, 1024);
+
         $application = $this->userApplicationTest;
-        $application['file'] = UploadedFile::fake()->create($filename, 1024);
+        $application['file'] = $mockFile;
 
         $response = $this->post('/send-application', $application);
 
         $response->assertOk();
         Storage::disk('curriculums')->assertExists('usuario-testador-cv.pdf');
         $this->assertDatabaseHas('user_applications', [
-            'email' => "teste@email.com",
+            'email' => Auth::user()->email,
         ]);
         $this->assertDatabaseHas('curriculums', [
             'filename' => $filename,

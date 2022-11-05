@@ -4,7 +4,11 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use App\Models\UserApplication;
+
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+
 use Tests\TestCase;
 
 class DashboardTest extends TestCase
@@ -20,6 +24,7 @@ class DashboardTest extends TestCase
         parent::setUp();
 
         $this->testUser = User::factory()->create();
+        Auth::login($this->testUser);
     }
 
     public function test_dashboard_screen_can_be_rendered()

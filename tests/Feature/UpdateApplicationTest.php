@@ -4,7 +4,10 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use App\Models\UserApplication;
+
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+
 use Tests\TestCase;
 
 class UpdateApplicationTest extends TestCase
@@ -29,6 +32,8 @@ class UpdateApplicationTest extends TestCase
             'ip_address' => '10.0.0.1',
             'user_id' => $this->testUser->id
         ]);
+
+        Auth::login($this->testUser);
     }
 
     public function test_update_application_screen_can_be_rendered()
