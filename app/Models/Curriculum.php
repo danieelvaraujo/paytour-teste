@@ -13,4 +13,8 @@ class Curriculum extends Model
         'filename',
         'applicant_id'
     ];
+
+    public function user_application(){
+        return $this->belongsTo('App\Models\UserApplication');
+    }
 }

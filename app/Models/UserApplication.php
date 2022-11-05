@@ -18,4 +18,9 @@ class UserApplication extends Model
         'ip_address',
         'user_id'
     ];
+
+    public function curriculum()
+    {
+        return $this->hasOne(Curriculum::class, 'applicant_id');
+    }
 }
