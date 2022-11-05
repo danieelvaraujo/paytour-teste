@@ -16,6 +16,7 @@ class UpdateApplicationController extends Controller
 
     public function __construct()
     {
+
         $id = Route::current()->parameter('id');
 
         $this->scholarities = Scholarity::get();
