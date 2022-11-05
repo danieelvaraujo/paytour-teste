@@ -49,10 +49,6 @@ class UpdateApplicationController extends Controller
 
         $this->applicationToUpdate->save();
 
-        return response()->json([
-            'success' => true,
-            'message' => 'User application this->applicationToUpdate.',
-            'data' => $this->applicationToUpdate
-        ], Response::HTTP_OK);
+        return redirect()->to('dashboard/' . $this->applicationToUpdate->id)->with('success', 'Campos editados com sucesso.');
     }
 }

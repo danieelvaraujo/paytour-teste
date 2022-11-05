@@ -154,6 +154,15 @@
                     </div>
                 </dl>
             </div>
+            @if (\Session::has('success'))
+                <div class="mx-10 ">
+                    <ul role="list">
+                        <li class="flex items-center justify-between">
+                            <span class="mt-1 max-w-2xl text-sm text-green-500">{!! \Session::get('success') !!}</span>
+                        </li>
+                    </ul>
+                </div>
+            @endif
             <div class="flex justify-center">
                 <button
                     onclick="window.location.href='{{ url('update-application/' . $userApplication->id)}}'"
