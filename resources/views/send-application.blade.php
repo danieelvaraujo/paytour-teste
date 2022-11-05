@@ -22,56 +22,105 @@
 
                 <div class="space-y-6">
                     <div class="grid grid-cols-3 items-start gap-4 border-t border-gray-200 pt-5">
-                        <span class="block text-sm font-medium text-gray-700 mt-px pt-2">Nome completo</span>
+                        <label
+                            for="desired_job_title"
+                            class="block text-sm font-medium text-gray-700 mt-px pt-2"
+                        >
+                            Nome completo
+                        </label>
                         <div class="mt-1 col-span-2 mt-0">
-                            <div class="flex max-w-lg rounded-md shadow-sm">
-                                <input
-                                    required
-                                    value="{{ Auth::user()->name }}"
-                                    valu=''
-                                    type="text"
-                                    name="name"
-                                    autocomplete="name"
-                                    class="block w-full min-w-0 flex-1 rounded-none rounded-r-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 text-sm"
-                                >
-                            </div>
+                            <input
+                                required
+                                value="{{ Auth::user()->name }}"
+                                valu=''
+                                type="text"
+                                name="name"
+                                autocomplete="name"
+                                class="block w-full min-w-0 flex-1 rounded-none rounded-r-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 text-sm"
+                            >
+                            @error('name')
+                                <div class="mx-10 ">
+                                    <ul role="list">
+                                        <li class="flex items-center justify-between">
+                                            <span class="mt-1 max-w-2xl text-sm text-red-500">
+                                                {{ $message }}
+                                            </span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            @enderror
                         </div>
                     </div>
 
+
                     <div class="grid grid-cols-3 items-start gap-4 border-t border-gray-200 pt-5">
-                        <span class="block text-sm font-medium text-gray-700 mt-px pt-2">Email</span>
+                        <label
+                            for="desired_job_title"
+                            class="block text-sm font-medium text-gray-700 mt-px pt-2"
+                        >
+                            Email
+                        </label>
                         <div class="mt-1 col-span-2 mt-0">
-                            <div class="flex max-w-lg rounded-md shadow-sm">
-                                <span class="inline-flex items-center rounded-l-md border border-r-0 border-gray-300 bg-gray-50 px-3 text-gray-500 text-sm">@</span>
-                                <input
-                                    required
-                                    value="{{ Auth::user()->email }}"
-                                    type="email"
-                                    name="email"
-                                    autocomplete="email"
-                                    class="block w-full min-w-0 flex-1 rounded-none rounded-r-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 text-sm"
-                                >
-                            </div>
+                            <input
+                                required
+                                value="{{ Auth::user()->email }}"
+                                type="email"
+                                name="email"
+                                autocomplete="email"
+                                class="block w-full min-w-0 flex-1 rounded-none rounded-r-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 text-sm"
+                            >
+                            @error('email')
+                                <div class="mx-10 ">
+                                    <ul role="list">
+                                        <li class="flex items-center justify-between">
+                                            <span class="mt-1 max-w-2xl text-sm text-red-500">
+                                                {{ $message }}
+                                            </span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            @enderror
                         </div>
                     </div>
 
+
                     <div class="grid grid-cols-3 items-start gap-4 border-t border-gray-200 pt-5">
-                        <span class="block text-sm font-medium text-gray-700 mt-px pt-2">Telefone</span>
+                        <label
+                            for="desired_job_title"
+                            class="block text-sm font-medium text-gray-700 mt-px pt-2"
+                        >
+                            Telefone
+                        </label>
                         <div class="mt-1 col-span-2 mt-0">
-                            <div class="flex max-w-lg rounded-md shadow-sm">
-                                <input
-                                    required
-                                    type="text"
-                                    name="telephone"
-                                    autocomplete="telephone"
-                                    class="block w-full min-w-0 flex-1 rounded-none rounded-r-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 text-sm"
-                                >
-                            </div>
+                            <input
+                                required
+                                type="text"
+                                name="telephone"
+                                autocomplete="telephone"
+                                class="block w-full min-w-0 flex-1 rounded-none rounded-r-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 text-sm"
+                            >
+                            @error('telephone')
+                                <div class="mx-10 ">
+                                    <ul role="list">
+                                        <li class="flex items-center justify-between">
+                                            <span class="mt-1 max-w-2xl text-sm text-red-500">
+                                                {{ $message }}
+                                            </span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            @enderror
                         </div>
                     </div>
 
+
                     <div class="grid grid-cols-3 items-start gap-4 border-t border-gray-200 pt-5">
-                        <span class="block text-sm font-medium text-gray-700 mt-px pt-2">Observações</span>
+                        <label
+                            for="desired_job_title"
+                            class="block text-sm font-medium text-gray-700 mt-px pt-2"
+                        >
+                            Observações
+                        </label>
                         <div class="mt-1 col-span-2 mt-0">
                             <textarea
                                 name="observations"
@@ -80,6 +129,7 @@
                             ></textarea>
                         </div>
                     </div>
+
 
                     <div class="grid grid-cols-3 items-start gap-4 border-t border-gray-200 pt-5">
                         <span class="block text-sm font-medium text-gray-700 mt-px pt-2">Currículum</span>
@@ -93,6 +143,17 @@
                                         <label for="file" class='text-gray-900 font-bold'>Enviar currículo</label>
                                         <input name="file" type="file" accept=".doc,.docx,application/pdf" />
                                     </div>
+                                    @error('file')
+                                        <div class="mx-10 ">
+                                            <ul role="list">
+                                                <li class="flex items-center justify-between">
+                                                    <span class="mt-1 max-w-2xl text-sm text-red-500">
+                                                        {{ $message }}
+                                                    </span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    @enderror
 
                                     <p class="text-xs text-gray-500 pt-2">doc, docx ou pdf de até 1MB</p>
                                 </div>
@@ -110,20 +171,37 @@
                     <div class="grid grid-cols-3 items-start gap-4 border-t border-gray-200 pt-5">
                         <label
                             for="desired_job_title"
-                            class="block text-sm font-medium text-gray-700 mt-px pt-2">Cargo desejado</label>
+                            class="block text-sm font-medium text-gray-700 mt-px pt-2"
+                        >
+                            Cargo desejado
+                        </label>
                         <div class="mt-1 col-span-2 mt-0">
                             <input
                                 type="text"
                                 name="desired_job_title"
                                 class="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 max-w-xs text-sm"
                             >
+                            @error('desired_job_title')
+                                <div class="mx-10 ">
+                                    <ul role="list">
+                                        <li class="flex items-center justify-between">
+                                            <span class="mt-1 max-w-2xl text-sm text-red-500">
+                                                {{ $message }}
+                                            </span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            @enderror
                         </div>
                     </div>
 
                     <div class="grid grid-cols-3 items-start gap-4 border-t border-gray-200 pt-5">
                         <label
                             for="scholarity"
-                            class="block text-sm font-medium text-gray-700 mt-px pt-2">Escolaridade</label>
+                            class="block text-sm font-medium text-gray-700 mt-px pt-2"
+                        >
+                            Escolaridade
+                        </label>
                         <div class="mt-1 col-span-2 mt-0">
                             <select
                                 name="scholarity"
@@ -134,6 +212,17 @@
                                     <option value="{{ $scholarity->value}}">{{ $scholarity->title }}</option>
                                 @endforeach
                             </select>
+                            @error('scholarity')
+                                <div class="mx-10 ">
+                                    <ul role="list">
+                                        <li class="flex items-center justify-between">
+                                            <span class="mt-1 max-w-2xl text-sm text-red-500">
+                                                {{ $message }}
+                                            </span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            @enderror
                         </div>
                     </div>
                 </div>

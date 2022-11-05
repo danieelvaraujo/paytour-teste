@@ -18,7 +18,7 @@ class UserApplicationController extends Controller
     public $rules = [
         'name' => 'required|min:3',
         'email' => 'required|email',
-        'telephone' => 'required',
+        'telephone' => 'required|min:10',
         'desired_job_title' => 'required|string',
         'scholarity' => 'required',
     ];
