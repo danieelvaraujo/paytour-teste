@@ -37,6 +37,5 @@
 ### Regras extras
 
     - Somente usuários registrados podem cadastrar uma aplicação ✅
-    - Fazer as relações:
-        - Cada aplicação deve pertencer a um usuário
-        - Cada currículo deve pertencer a uma aplicação
+    - Fazer a relaçõe:
+        - Cada currículo deve pertencer a uma aplicação ✅
