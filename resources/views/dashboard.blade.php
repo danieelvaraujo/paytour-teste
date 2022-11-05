@@ -104,13 +104,45 @@
                                         </li>
                                     </ul>
                                 @else
-                                    <ul role="list" class="divide-y divide-gray-200 rounded-md border border-gray-200">
-                                        <li class="flex items-center justify-between py-3 pl-3 pr-4 text-sm">
-                                            <div class="flex w-0 flex-1 items-center">
-                                                <span class="ml-2 w-0 flex-1 truncate">Você ainda não enviou o seu currículo.</span>
-                                            </div>
-                                        </li>
-                                    </ul>
+                                    <div class="pb-2">
+                                        <span class="ml-2 w-0 flex-1 truncate">Você ainda não enviou o seu currículo.</span>
+                                    </div>
+                                    <form
+                                        method="post"
+                                        action="{{ url('upload-curriculum') }}"
+                                        enctype="multipart/form-data"
+                                    >
+                                        @csrf
+                                        <ul role="list" class="divide-y divide-gray-200 rounded-md border border-gray-200">
+                                            <li class="flex items-center justify-center py-3 pl-3 pr-4 text-sm">
+                                                <div class="flex flex-col text-sm text-gray-600">
+                                                    <input name="file" type="file" accept=".doc,.docx,application/pdf" />
+                                                    <button
+                                                        type="submit"
+                                                        class="
+                                                            items-center
+                                                            rounded-md
+                                                            border
+                                                            border-gray-300
+                                                            bg-white
+                                                            mt-2
+                                                            px-2
+                                                            py-1
+                                                            text-sm
+                                                            font-medium
+                                                            text-gray-700
+                                                            shadow-sm hover:bg-gray-50
+                                                            focus:outline-none
+                                                            focus:ring-2
+                                                            focus:ring-indigo-500
+                                                            focus:ring-offset-2"
+                                                    >
+                                                        Enviar currículo
+                                                    </button>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </form>
                                 @endif
                             </dd>
                         </div>
