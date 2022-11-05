@@ -29,8 +29,8 @@ class UserApplicationTest extends TestCase
         Auth::login($this->testUser);
 
         $this->userApplicationTest = [
-            'name' => 'Usuario Testador',
-            'email' => 'teste@email.com',
+            'name' => $this->testUser->name,
+            'email' => $this->testUser->email,
             'telephone' => '84987654321',
             'desired_job_title' => 'Desenvolvedor backend',
             'scholarity' => 'Ensino superior completo',
@@ -68,6 +68,24 @@ class UserApplicationTest extends TestCase
 
         $response->assertOk();
         Storage::disk('curriculums')->assertExists('usuario-testador-cv.pdf');
+        $this->assertDatabaseHas('curriculums', [
+            'filename' => $filename,
+        ]);
+    }
+
+    public function test_saving_uploaded_curriculum_filename_with_user_name()
+    {
+        UserApplication::create($this->userApplicationTest);
+
+        $filename = str_replace(' ', '-', strtolower(Auth::user()->name)) . '-cv.pdf';
+        $mockFile = UploadedFile::fake()->create($filename, 1024);
+
+        $response = $this->post('/upload-curriculum', [
+            'file' => $mockFile
+        ]);
+
+        $response->assertOk();
+        Storage::disk('curriculums')->assertExists($filename);
         $this->assertDatabaseHas('curriculums', [
             'filename' => $filename,
         ]);
