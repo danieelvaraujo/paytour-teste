@@ -43,6 +43,8 @@
                                     <div class="flex max-w-lg rounded-md shadow-sm">
                                         <input
                                             required
+                                            value="{{ Auth::user()->name }}"
+                                            valu=''
                                             type="text"
                                             name="name"
                                             autocomplete="name"
@@ -59,6 +61,7 @@
                                         <span class="inline-flex items-center rounded-l-md border border-r-0 border-gray-300 bg-gray-50 px-3 text-gray-500 text-sm">@</span>
                                         <input
                                             required
+                                            value="{{ Auth::user()->email }}"
                                             type="email"
                                             name="email"
                                             autocomplete="email"
