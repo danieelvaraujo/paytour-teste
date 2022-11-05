@@ -107,7 +107,7 @@
                                             </svg>
                                             <div class="flex flex-col text-sm text-gray-600">
                                                 <label for="file" class='text-gray-900 font-bold'>Enviar currículo</label>
-                                                <input name="file" type="file" />
+                                                <input name="file" type="file" accept=".doc,.docx,application/pdf" />
                                             </div>
 
                                             <p class="text-xs text-gray-500 pt-2">doc, docx ou pdf de até 1MB</p>
