@@ -39,3 +39,4 @@
     - Somente usuários registrados podem cadastrar uma aplicação ✅
     - Fazer a relaçõe:
         - Cada currículo deve pertencer a uma aplicação ✅
+    - Criar menu de navegação com Usuario e botão de logout
