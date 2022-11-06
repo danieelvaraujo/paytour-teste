@@ -49,7 +49,7 @@ class UserApplicationTest extends TestCase
     {
         $response = $this->post('/send-application', $this->userApplicationTest);
 
-        $response->assertOk();
+        $response->assertStatus(302);
         $this->assertDatabaseHas('user_applications', [
             'email' => $this->userApplicationTest['email'],
         ]);
@@ -66,7 +66,7 @@ class UserApplicationTest extends TestCase
             'file' => $mockFile
         ]);
 
-        $response->assertOk();
+        $response->assertStatus(302);
         Storage::disk('curriculums')->assertExists($filename);
         $this->assertDatabaseHas('curriculums', [
             'filename' => $filename,
@@ -84,7 +84,7 @@ class UserApplicationTest extends TestCase
             'file' => $mockFile
         ]);
 
-        $response->assertOk();
+        $response->assertStatus(302);
         Storage::disk('curriculums')->assertExists($filename);
         $this->assertDatabaseHas('curriculums', [
             'filename' => $filename,
@@ -129,7 +129,7 @@ class UserApplicationTest extends TestCase
 
         $response = $this->post('/send-application', $application);
 
-        $response->assertOk();
+        $response->assertStatus(302);
         Storage::disk('curriculums')->assertExists($filename);
         $this->assertDatabaseHas('user_applications', [
             'email' => Auth::user()->email,
@@ -148,7 +148,7 @@ class UserApplicationTest extends TestCase
 
         $response = $this->post('/send-application', $application);
 
-        $response->assertOk();
+        $response->assertStatus(302);
         $this->assertDatabaseHas('user_applications', [
             'ip_address' => '10.1.0.1',
         ]);
@@ -169,7 +169,7 @@ class UserApplicationTest extends TestCase
 
         $response = $this->post('/send-application', $application->toArray());
 
-        $response->assertOk();
+        $response->assertStatus(302);
         $this->assertDatabaseHas('user_applications', [
             'user_id' => $application->user_id,
         ]);
@@ -189,7 +189,7 @@ class UserApplicationTest extends TestCase
             return $mail->hasTo($application['email']) &&
                    $mail->hasFrom(env('MAIL_FROM_ADDRESS'));
         });
-        $response->assertOk();
+        $response->assertStatus(302);
     }
 
     public function test_email_is_showing_correct_values()

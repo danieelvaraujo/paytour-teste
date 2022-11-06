@@ -62,7 +62,7 @@ class UpdateApplicationTest extends TestCase
         ];
 
         $response = $this->put('/update-application/' . $this->testApplication->id, $dataToChange);
-        $response->assertOk();
+        $response->assertStatus(302);
 
         $this->assertDatabaseHas('user_applications', [
             'name' => 'Usuario Atualizado',
