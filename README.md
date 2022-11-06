@@ -12,22 +12,22 @@
 Teste desenvolvido com Laravel.
 Foi utilizado Breeze para autenticação e Tailwind para o CSS.
 
-Para rodar o sistema, faça o clone do repositório, copie o .env.example e altere as informações necessárias.
+Para rodar o sistema, faça o clone do repositório, copie o .env.example e altere as informações necessárias.  
 Foi utilizado como padrão o Postgresql com a database "paytour", mas fica à critério.
 
-Depois de configurado o .env do projeto, rode os comandos:
+Depois de configurado o .env do projeto, rode os comandos:  
 `composer install`  
 `npm run dev` para rodar o tailwind  
 `php artisan migrate --seed` será necessário para preencher a tabela de escolaridade
 
-Para rodar os testes:
+Para rodar os testes:  
 `php artisan test`
 
 Foi mantido os testes padrões do sistema assim como os de autenticação gerados automaticamente pelo Breeze.
 
 ## Mailer
 
-Para o envio de email funcionar corretamente, deve-se preencher as variáveis do env com as próprias informações.
+Para o envio de email funcionar corretamente, deve-se preencher as variáveis do env com as próprias informações.  
 Para o teste foi utilizado o serviço do [Google](https://support.google.com/mail/answer/185833?hl=en).
 
 ## License
