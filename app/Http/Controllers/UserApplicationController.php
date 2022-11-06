@@ -16,9 +16,9 @@ use Symfony\Component\HttpFoundation\Response;
 class UserApplicationController extends Controller
 {
     public $rules = [
-        'name' => 'required|min:3',
+        'name' => 'required|min:3|max:32',
         'email' => 'required|email',
-        'telephone' => 'required|min:10',
+        'telephone' => 'required|min:10|max:11',
         'desired_job_title' => 'required|string',
         'scholarity' => 'required',
     ];
