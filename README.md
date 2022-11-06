@@ -16,8 +16,8 @@ Para rodar o sistema, faça o clone do repositório, copie o .env.example e alte
 Foi utilizado como padrão o Postgresql com a database "paytour", mas fica à critério.
 
 Depois de configurado o .env do projeto, rode os comandos:
-`composer install`
-`npm run dev` para rodar o tailwind
+`composer install`  
+`npm run dev` para rodar o tailwind  
 `php artisan migrate --seed` será necessário para preencher a tabela de escolaridade
 
 Para rodar os testes:
