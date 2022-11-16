@@ -2,23 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\UserApplication;
+use App\Repositories\UserApplicationRepository;
 use Illuminate\Support\Facades\Route;
 
 class DashboardController extends Controller
 {
-    public $id;
-    public $userApplication;
+    public $userApplicationRepository;
 
-    public function __construct()
+    public function __construct(UserApplicationRepository $userApplicationRepository)
     {
-        $id = Route::current()->parameter('id');
-        $this->userApplication = UserApplication::where('user_id', $id)->first();
+        $this->userApplicationRepository = $userApplicationRepository;
     }
 
     public function show()
     {
-        $userApplication = $this->userApplication;
+        $id = Route::current()->parameter('id');
+        $userApplication = $this->userApplicationRepository->findById($id);
 
         return view('dashboard', compact('userApplication'));
     }
